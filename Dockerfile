@@ -35,5 +35,6 @@ COPY --from=build /usr/local/lib/tlaps /usr/local/lib/tlaps
 COPY --from=build /usr/local/bin/zenon /usr/bin/
 COPY --from=build /tmp/Isabelle2011-1/contrib/z3-3.1/x86-linux/z3 /usr/bin/
 COPY --from=build /tmp/Isabelle2011-1/contrib/spass-3.7/x86-linux/bin/* /usr/bin/
+ADD tlc /usr/bin/
 
 RUN ln -s /opt/Isabelle/bin/* /usr/bin/
