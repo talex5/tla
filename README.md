@@ -12,19 +12,21 @@ Example `Makefile`:
 ```
 WORKERS := 4
 
+TLA := docker run --rm -it --workdir /mnt -v ${PWD}:/mnt talex5/tla
+
 .PHONY: all check tlaps pdfs
 
-all: check pdf
+all: check tlaps pdf
 
 check:
-       docker run --rm -it --workdir /mnt -v ${PWD}:/mnt talex5/tla tlc -workers ${WORKERS} Spec.tla
+       ${TLA} tlc -workers ${WORKERS} Spec.tla
 
 tlaps:
-       docker run --rm -it --workdir /mnt -v ${PWD}:/mnt talex5/tla tlapm -I /usr/local/lib/tlaps Spec.tla
+       ${TLA} tlapm -I /usr/local/lib/tlaps Spec.tla
 
 %.pdf: %.tla
        [ -d metadir ] || mkdir metadir
-       docker run --rm -it --workdir /mnt -v ${PWD}:/mnt talex5/tla java tla2tex.TLA -shade -latexCommand pdflatex -latexOutputExt pdf -metadir metadir $<
+       ${TLA} java tla2tex.TLA -shade -latexCommand pdflatex -latexOutputExt pdf -metadir metadir $<
 
 pdfs: Spec.pdf
 ```
