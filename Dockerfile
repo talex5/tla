@@ -35,6 +35,10 @@ RUN tar xf translate.tar.bz2
 WORKDIR /tmp/translate
 RUN ./buildb.sh
 
+# Build the "Isabelle TLA+ heap". Whatever that is. TLAPS complains if it can't find it.
+WORKDIR /tmp/tlaps-1.4.3/isabelle
+RUN make heap-only PATH=/tmp/Isabelle2011-1/bin:$PATH
+
 FROM debian:9
 ADD LICENSE /TLA-LICENSE
 ENV CLASSPATH=/opt/tla
@@ -51,5 +55,6 @@ COPY --from=build /usr/local/bin/zenon /usr/bin/
 COPY --from=build /tmp/Isabelle2011-1/contrib/z3-3.1/x86-linux/z3 /usr/bin/
 COPY --from=build /tmp/Isabelle2011-1/contrib/spass-3.7/x86-linux/bin/* /usr/bin/
 ADD tlc /usr/bin/
+COPY --from=build /root/.isabelle/Isabelle2011-1/heaps/polyml-5.4.0_x86_64-linux/TLA+ /opt/Isabelle/heaps/polyml-5.4.0_x86_64-linux/
 
 RUN ln -s /opt/Isabelle/bin/* /usr/bin/
