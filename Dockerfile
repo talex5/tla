@@ -25,7 +25,7 @@ RUN make install
 FROM debian:9
 ADD LICENSE /TLA-LICENSE
 ENV CLASSPATH=/opt/tla
-RUN apt-get update && apt-get install -y procps texlive-latex-base openjdk-8-jre-headless --no-install-recommends
+RUN apt-get update && apt-get install -y procps texlive-latex-base openjdk-8-jre-headless cvc3 --no-install-recommends
 # TLC and TLATEX:
 COPY --from=build /opt/tla /opt/tla
 # TLAPS stuff:
