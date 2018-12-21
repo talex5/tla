@@ -1,4 +1,4 @@
 #!/bin/bash
 set -eux
-java tlc2.TLC "$@" | tee /tmp/$$.log
+java -DTLA-Library=/usr/local/lib/tlaps/ tlc2.TLC "$@" | tee /tmp/$$.log
 grep -q "Model checking completed. No error has been found." /tmp/$$.log
