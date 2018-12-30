@@ -34,5 +34,12 @@ pdfs: Spec.pdf
 The `tlc` command runs `java tlc2.TLC` and then greps the results for the string `Model checking completed. No error has been found.`,
 returning a non-zero exit status if it is not found.
 
-The installation is probably not quite right. I tried to follow the instructions
+I tried to follow the instructions
 at https://tla.msr-inria.inria.fr/tlaps/content/Download/Source.html and fix up any problems as they turned up.
+
+To use this with the toolbox for interactive proof checking, I put this file in my PATH:
+
+```bash
+#!/bin/bash
+docker run --rm -i -v ${PWD}:${PWD} --entrypoint tlapm talex5/tla "$@"
+```
